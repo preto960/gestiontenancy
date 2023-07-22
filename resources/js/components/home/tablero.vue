@@ -1,6 +1,6 @@
 <template>
     <div class="layout-px-spacing dash_1">
-        <teleport to="#breadcrumb">
+        <!-- <teleport to="#breadcrumb">
             <ul class="navbar-nav flex-row">
                 <li>
                     <div class="page-header">
@@ -44,7 +44,7 @@
                     </div>
                 </li>
             </ul>
-        </teleport>
+        </teleport> -->
 
         <div class="row layout-top-spacing">
             <!-- <p>Bienvenido, {{ user.name }} ({{ user.email }})</p>
