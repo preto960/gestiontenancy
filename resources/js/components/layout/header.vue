@@ -1121,7 +1121,7 @@
 </template>
 
 <script setup>
-    import { onMounted, onBeforeMount, ref, reactive } from 'vue';
+    import { onMounted, ref, reactive } from 'vue';
     import { useI18n } from 'vue-i18n';
     import { useStore } from 'vuex';
     import axios from 'axios';

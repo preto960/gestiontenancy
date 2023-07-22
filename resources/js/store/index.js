@@ -4,7 +4,7 @@ import createPersistedState from 'vuex-persistedstate';
 
 export default new createStore({
     state: {
-        layout: "inic",
+        layout: "app",
         is_show_sidebar: true,
         is_show_search: false,
         is_dark_mode: false,

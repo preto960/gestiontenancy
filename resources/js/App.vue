@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="[$store.state.layout_style, $store.state.menu_style]">
         <component v-bind:is="layout"></component>
     </div>
 </template>
@@ -23,13 +23,11 @@
     // layouts
     import appLayout from "./layouts/app-layout.vue";
     import authLayout from "./layouts/auth-layout.vue";
-    import inicLayout from "./layouts/inic-layout.vue";
     
     export default {
         components: {
             app: appLayout,
             auth: authLayout,
-            inic: inicLayout,
         },
     };
 </script>
