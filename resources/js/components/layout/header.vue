@@ -1125,7 +1125,8 @@
     import { useI18n } from 'vue-i18n';
     import { useStore } from 'vuex';
     import axios from 'axios';
-    import router from "../../router";
+    import { useRouter } from 'vue-router';
+    const router = useRouter();
 
     const store = useStore();
 
@@ -1163,7 +1164,12 @@
             router.push('/');
         })
         .catch(error => {
-            console.error(error);
+            if(error.response.data.message === "Unauthenticated."){
+                store.commit('setUserData', null);
+                router.push('/');
+            }else{
+                console.error(error);
+            }
         });
     };
 </script>

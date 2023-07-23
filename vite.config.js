@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite';
-import path from "path";
-import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
+import path from "path";
 import vueI18n from "@intlify/vite-plugin-vue-i18n";
+import laravel from 'laravel-vite-plugin';
 
 export default defineConfig({
     plugins: [

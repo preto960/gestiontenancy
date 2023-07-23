@@ -1,6 +1,6 @@
 <template>
     <div class="layout-px-spacing">
-        <teleport to="#breadcrumb">
+        <!-- <teleport to="#breadcrumb">
             <ul class="navbar-nav flex-row">
                 <li>
                     <div class="page-header">
@@ -13,9 +13,16 @@
                     </div>
                 </li>
             </ul>
-        </teleport>
+        </teleport> -->
 
         <div class="row layout-spacing">
+
+            <!-- <p>Bienvenido, {{ user.name }} ({{ user.email }})</p>
+            <p>Rol: {{ user.roles[0].name }}</p>
+            <p v-if="user.roles[0].permissions.length > 0">Permisos:</p>
+            <ul v-if="user.roles[0].permissions.length > 0">
+                <li v-for="permission in user.roles[0].permissions" :key="permission">{{ permission.name }}</li>
+            </ul> -->
             <!-- Content -->
             <div class="col-xl-4 col-lg-6 col-md-5 col-sm-12 layout-top-spacing">
                 <div class="user-profile layout-spacing">
@@ -43,7 +50,7 @@
                             </div>
                             <div class="text-center user-info">
                                 <img src="/assets/images/profile-3.jpeg" alt="avatar" />
-                                <p class="">Jimmy Turner</p>
+                                <p class="">{{ user.name }}</p>
                             </div>
                             <div class="user-info-list">
                                 <div class="">
@@ -67,7 +74,7 @@
                                                 <line x1="10" y1="1" x2="10" y2="4"></line>
                                                 <line x1="14" y1="1" x2="14" y2="4"></line>
                                             </svg>
-                                            Web Developer
+                                            {{ user.roles[0].name }}
                                         </li>
                                         <li class="contacts-block__item">
                                             <svg
@@ -121,7 +128,7 @@
                                                 >
                                                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                                     <polyline points="22,6 12,13 2,6"></polyline></svg
-                                                >Jimmy@gmail.com</a
+                                                >{{ user.email }}</a
                                             >
                                         </li>
                                         <li class="contacts-block__item">
@@ -394,7 +401,13 @@
 <script setup>
     import "../../assets/sass/scrollspyNav.scss";
     import "../../assets/sass/users/user-profile.scss";
-
+    import { computed, ref } from "vue";
     import { useMeta } from "../../composables/use-meta";
+    import { useStore } from "vuex";
+
     useMeta({ title: "User Profile" });
+
+    const store = useStore();
+
+    const user = computed(() => store.state.userData.user);
 </script>

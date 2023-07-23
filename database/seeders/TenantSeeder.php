@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Support\Facades\Hash;
 
 class TenantSeeder extends Seeder
@@ -25,12 +26,19 @@ class TenantSeeder extends Seeder
         Permission::create(['guard_name' => $guard,'name' => 'tenant'])->syncRoles([$tenant]);
 
         $system = User::create([
-            'name' => 'Test',
             'username' => 'test',
             'email' => 'test@gmail.com',
             'password' => Hash::make('123456'),
             'status' => 1
         ])->assignRole('tenant');
+
+        $profile = Profile::create([
+            'user_id' => $system->id,
+            'first_name' => 'Test',
+            'last_name' => 'Test',
+            'phone' => '123456789',
+            'street' => 'chile',
+        ]);
 
         /* $menuadmin1 = MenuGenerate::create([
                 'title' => 'Admin',

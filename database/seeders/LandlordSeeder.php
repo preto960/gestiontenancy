@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
+use App\Models\Profile;
 use App\Models\Tenant;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,12 +31,19 @@ class LandlordSeeder extends Seeder
         Tenant::create(['name' => 'prueba', 'domain' => 'gestiontenancy1.test', 'database' => 'multigeekos_prueba', 'status' => 1]);
 
         $system = User::create([
-            'name' => 'System',
             'username' => 'system',
             'email' => 'system@gmail.com',
             'password' => Hash::make('123456'),
             'status' => 1,
         ])->assignRole('landlord');
+
+        $profile = Profile::create([
+            'user_id' => $system->id,
+            'first_name' => 'System',
+            'last_name' => 'System',
+            'phone' => '123456789',
+            'street' => 'chile',
+        ]);
 
         /* $system = User::create([
             'name' => 'Juan',

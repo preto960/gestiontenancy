@@ -5,7 +5,7 @@
                 <div class="form-form-wrap">
                     <div class="form-container">
                         <div class="form-content">
-                            <h1 class="">Sign In</h1>
+                            <h1 class="">{{ $t('login') }}</h1>
                             <p class="">Log in to your account to continue.</p>
 
                             <form class="text-start" @submit.prevent="login">
@@ -132,27 +132,11 @@
 <script setup>
     import "../../assets/sass/authentication/auth-boxed.scss";
     import { onMounted, ref, reactive } from 'vue';
-    import { useI18n } from 'vue-i18n';
     import { useStore } from 'vuex';
     import axios from 'axios';
-    import router from "../../router";
+    import { useRouter } from 'vue-router';
+    const router = useRouter();
     const store = useStore();
-
-    const selectedLang = ref(null);
-    const countryList = ref(store.state.countryList);
-
-    const i18n = reactive(useI18n());
-
-    onMounted(() => {
-        /* selectedLang.value = window.$appSetting.toggleLanguage(); */
-        /* toggleMode(); */
-    });
-
-    const changeLanguage = (item) => {
-        selectedLang.value = item;
-        i18n.locale = item.code;
-        window.$appSetting.toggleLanguage(item);
-    };
 
     const email = ref('system');
     const password = ref('123456');
@@ -167,7 +151,6 @@
         }
     };
 
-
     const login = () => {
         axios.post('api/login', {
             login: email.value,
@@ -175,7 +158,6 @@
         })
         .then(response => {
             store.commit('setUserData',response.data.data);
-            // Redirigir al usuario a una vista protegida
             router.push('/dashboard');
         })
         .catch(error => {

@@ -22,5 +22,7 @@ use App\Http\Controllers\UserController;
 Route::get('/users', [UserController::class, 'index'])->middleware(['auth:sanctum','CheckTLMode']);
 Route::get('/user/{id}', [UserController::class, 'show'])->middleware(['auth:sanctum','CheckTLMode']);
 Route::post('/register', [AuthController::class, 'register']);
+Route::get('/routes', [AuthController::class, 'routes']);
+Route::get('/config', [AuthController::class, 'config']);
 Route::post('/login', [AuthController::class, 'login'])->middleware('CheckTLMode');
 Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum','CheckTLMode']);

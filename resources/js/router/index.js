@@ -1,14 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Home from '../components/ExampleComponent.vue';
-import Auth from "../components/auth/login.vue";
 import store from '../store';
 import routesTheme from './theme';
-
-// Vue.use(VueRouter);
-// import { createApp } from 'vue';
-// const app = createApp();
-// app.use(createRouter);
+import routesDinamyc from './dinamyc';
 
 const routes = [
     //dashboard
@@ -21,7 +16,7 @@ const routes = [
     {
         path: '/login',
         name: 'Login',
-        component: Auth,
+        component: () => import( '../components/auth/login.vue'),
         meta: { layout: 'auth' },
     },
     {
@@ -29,7 +24,7 @@ const routes = [
         name: 'Dashboard',
         component: () => import( '../components/home/tablero.vue')
     },
-
+    ...(await routesDinamyc),
     ...routesTheme
 ];
 
@@ -51,6 +46,9 @@ router.beforeEach((to, from, next) => {
     if (to.meta && to.meta.layout && to.meta.layout == 'auth') {
         store.commit('setLayout', 'auth');
     } else {
+        if (!store.state.userData) {
+            return next('/login');
+        }
         store.commit('setLayout', 'app');
     }
     next(true);

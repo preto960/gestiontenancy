@@ -1,6 +1,6 @@
 <template>
     <div class="layout-px-spacing dash_1">
-        <teleport to="#breadcrumb">
+        <!-- <teleport to="#breadcrumb">
             <ul class="navbar-nav flex-row">
                 <li>
                     <div class="page-header">
@@ -44,15 +44,9 @@
                     </div>
                 </li>
             </ul>
-        </teleport>
+        </teleport> -->
 
         <div class="row layout-top-spacing">
-            <!-- <p>Bienvenido, {{ user.name }} ({{ user.email }})</p>
-            <p>Rol: {{ user.roles[0].name }}</p>
-            <p v-if="user.roles[0].permissions.length > 0">Permisos:</p>
-            <ul v-if="user.roles[0].permissions.length > 0">
-                <li v-for="permission in user.roles[0].permissions" :key="permission">{{ permission.name }}</li>
-            </ul> -->
 
             <!-- <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                 <div class="widget widget-revenue">
@@ -1055,5 +1049,5 @@
 
     const store = useStore();
 
-    
+    const user = computed(() => store.state.userData.user);
 </script>

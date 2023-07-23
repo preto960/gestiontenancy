@@ -941,7 +941,6 @@
             </perfect-scrollbar>
         </nav>
     </div>
-    <!--  END SIDEBAR  -->
 </template>
 
 <script setup>

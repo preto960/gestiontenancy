@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Routes;
+use App\Models\Config;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -13,32 +15,6 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        /* $request->validate([
-            'login' => 'required',
-            'password' => 'required',
-        ]);
-
-        // Buscar al usuario por correo electrónico o nombre de usuario
-        $user = User::where('email', $request->login)
-                    ->orWhere('username', $request->login)
-                    ->first();
-
-        if (!$user) {
-            throw ValidationException::withMessages([
-                'login' => ['El correo electrónico o nombre de usuario no existe.'],
-            ]);
-        }
-
-        if (!Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'password' => ['La contraseña es incorrecta.'],
-            ]);
-        }
-
-        $token = $user->createToken('api_token')->plainTextToken;
-
-        return response()->json(['token' => $token]); */
-
         try {
             $validateUser = Validator::make($request->all(), 
             [
@@ -68,7 +44,7 @@ class AuthController extends Controller
                             'message' => 'User Logged In Successfully',
                             'data' => [
                                 'token' => $token->plainTextToken,
-                                'user' => $user
+                                'user' => ['email' => $user->email, 'username' => $user->username, 'roles' => $user->roles, 'profile' => $user->profile],
                             ]
                         ], 200);
                     }else{
@@ -128,18 +104,46 @@ class AuthController extends Controller
     {
         $data = $request->all();
         Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            /* 'name' => ['required', 'string', 'max:255'], */
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:4', 'confirmed'],
         ]);
 
         return User::create([
-            'name' => $data['name'],
+            /* 'name' => $data['name'], */
             'email' => $data['email'],
             'username' => $data['username'],
             'password' => Hash::make($data['password']),
             'status' => 1,
         ]);
+    }
+
+    public function routes()
+    {
+        try {
+            $routes = Routes::all();
+            return response(['status' => true,'data' => $routes]);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function config()
+    {
+        try {
+            $config = Config::all();
+            return response(['status' => true,'data' => $config]);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 }
