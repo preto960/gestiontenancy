@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('icon')->nullable();
             $table->string('meta');
             $table->integer('parent_id')->nullable();
+            $table->integer('type')->nullable();
+            $table->integer('position')->nullable();
             $table->timestamps();
         });
     }

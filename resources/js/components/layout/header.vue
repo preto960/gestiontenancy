@@ -5,11 +5,11 @@
                 <ul class="navbar-item theme-brand flex-row text-center">
                     <li class="nav-item theme-logo">
                         <router-link to="/">
-                            <img src="/assets/images/logo.svg" class="navbar-logo" alt="logo" />
+                            <img :src="logoSystem" class="navbar-logo" alt="logo"/>
                         </router-link>
                     </li>
                     <li class="nav-item theme-text">
-                        <router-link to="/" class="nav-link"> CORK </router-link>
+                        <router-link to="/" class="nav-link"> {{nameSystem}} </router-link>
                     </li>
                 </ul>
                 <div class="d-none horizontal-menu">
@@ -368,7 +368,14 @@
 
                     <div class="dropdown nav-item user-profile-dropdown btn-group">
                         <a href="javascript:;" id="ddluser" data-bs-toggle="dropdown" aria-expanded="false" class="btn dropdown-toggle btn-icon-only user nav-link">
-                            <img src="/assets/images/profile-16.jpeg" alt="avatar" />
+                            <div v-if="avatar">
+                                <img src="/assets/images/profile-16.jpeg" alt="avatar" />
+                            </div>
+                            <div v-else>
+                                <div class="avatar avatar-sm avatar-success me-1">
+                                    <span class="avatar-title rounded">{{name_user_avatar}}</span>
+                                </div>
+                            </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right m-0" aria-labelledby="ddluser">
                             <li role="presentation">
@@ -484,7 +491,8 @@
         <div class="topbar-nav header navbar" role="banner">
             <nav class="topbar">
                 <ul class="list-unstyled menu-categories" id="topAccordion">
-                    <li class="menu single-menu">
+                    <Menu />
+                    <!-- <li class="menu single-menu">
                         <a href="javascript:;" class="dropdown-toggle autodroprown">
                             <div class="">
                                 <svg
@@ -1113,7 +1121,7 @@
                                 <a target="_blank" href="https://cork-vue.sbthemes.com"> Documentation </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </nav>
         </div>
@@ -1126,14 +1134,35 @@
     import { useStore } from 'vuex';
     import axios from 'axios';
     import { useRouter } from 'vue-router';
+    import Menu from '../plugins/menu.vue';
+    import { $themeConfig } from "../../theme.config";
+    
+    import "../../assets/sass/scrollspyNav.scss";
+    import "../../assets/sass/elements/avatar.scss";
+    import highlight from "../plugins/highlight.vue";
+
     const router = useRouter();
-
-    const store = useStore();
-
+    const store = useStore();    
     const selectedLang = ref(null);
     const countryList = ref(store.state.countryList);
-
     const i18n = reactive(useI18n());
+
+    const avatar = ref(false);
+    const name_user_avatar = ref('');
+    const nameSystem = $themeConfig.name;
+    const logoSystem = ref('/assets/images/logo.svg');
+    
+    if($themeConfig.logo !== null && $themeConfig.logo !== '' && $themeConfig.hasOwnProperty('logo') === true){
+        logoSystem.value = '/assets/images/'+$themeConfig.logo;
+    }
+
+    if(store.state.userData != null && store.state.userData.user.profile.avatar != null){
+        avatar.value = true;
+        name_user_avatar.value = '';
+    }else{
+        avatar.value = false;
+        name_user_avatar.value = (store.state.userData.user.profile.first_name).substring(0, 2).toUpperCase();
+    }
 
     onMounted(() => {
         selectedLang.value = window.$appSetting.toggleLanguage();

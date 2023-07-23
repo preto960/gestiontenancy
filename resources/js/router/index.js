@@ -24,7 +24,7 @@ const routes = [
         name: 'Dashboard',
         component: () => import( '../components/home/tablero.vue')
     },
-    ...(await routesDinamyc),
+    ...(await routesDinamyc)[0],
     ...routesTheme
 ];
 
@@ -46,7 +46,7 @@ router.beforeEach((to, from, next) => {
     if (to.meta && to.meta.layout && to.meta.layout == 'auth') {
         store.commit('setLayout', 'auth');
     } else {
-        if (!store.state.userData) {
+        if (!store.state.userData || !store.state.userData.token || !store.state.userData.user) {
             return next('/login');
         }
         store.commit('setLayout', 'app');

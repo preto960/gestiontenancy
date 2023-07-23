@@ -20,5 +20,7 @@ class Routes extends Model
         'icon',
         'parent_id',
         'meta',
+        'type',
+        'position',
     ];
 }

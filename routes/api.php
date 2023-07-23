@@ -19,10 +19,10 @@ use App\Http\Controllers\UserController;
 /* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::apiResource('users', 'UserController');
 }); */
-Route::get('/users', [UserController::class, 'index'])->middleware(['auth:sanctum','CheckTLMode']);
-Route::get('/user/{id}', [UserController::class, 'show'])->middleware(['auth:sanctum','CheckTLMode']);
-Route::post('/register', [AuthController::class, 'register']);
-Route::get('/routes', [AuthController::class, 'routes']);
-Route::get('/config', [AuthController::class, 'config']);
+Route::post('/users', [UserController::class, 'index'])->middleware(['auth:sanctum','CheckTLMode']);
+Route::post('/user/{id}', [UserController::class, 'show'])->middleware(['auth:sanctum','CheckTLMode']);
+Route::post('/register', [AuthController::class, 'register'])->middleware(['auth:sanctum','CheckTLMode']);
+Route::get('/routes', [AuthController::class, 'routes'])->middleware(['CheckTLMode']);
+Route::get('/config', [AuthController::class, 'config'])->middleware(['CheckTLMode']);
 Route::post('/login', [AuthController::class, 'login'])->middleware('CheckTLMode');
 Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum','CheckTLMode']);

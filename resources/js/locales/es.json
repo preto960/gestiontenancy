@@ -20,5 +20,7 @@
     "documentation": "Documentación",
     "ui_kit": "Kit de interfaz de usuario",
     "more": "Más",
-    "login": "Iniciar sesión"
+    "login": "Iniciar sesión",
+    "profile": "Perfil",
+    "index": "Inicio"
 }

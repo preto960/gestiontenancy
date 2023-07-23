@@ -22,6 +22,13 @@ const head = createHead();
 //Sweetalert
 import Swal from "sweetalert2";
 window.Swal = Swal;
+window.Mixin = window.Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    padding: '2em'
+});
 
 // nouislider - later remove and add to page due to not working in page
 import VueNouislider from "vue3-nouislider";

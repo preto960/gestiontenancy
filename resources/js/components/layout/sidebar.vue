@@ -4,7 +4,8 @@
             <div class="shadow-bottom"></div>
 
             <perfect-scrollbar class="list-unstyled menu-categories" tag="ul" :options="{ wheelSpeed: 0.5, swipeEasing: !0, minScrollbarLength: 40, maxScrollbarLength: 300, suppressScrollX: true }">
-                <li class="menu">
+                <Menu />
+                <!-- <li class="menu">
                     <router-link to="/dashboard" class="dropdown-toggle" @click="toggleMobileMenu">
                         <div class="">
                             <svg
@@ -27,7 +28,7 @@
                         </div>
                     </router-link>
                 </li>
-                <!-- <li class="menu">
+                <li class="menu">
                     <a class="dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#dashboard" aria-controls="dashboard" aria-expanded="false">
                         <div class="">
                             <svg
@@ -77,7 +78,7 @@
                             </router-link>
                         </li>
                     </ul>
-                </li> -->
+                </li>
 
                 <li class="menu">
                     <a class="dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#apps" aria-controls="apps" aria-expanded="false">
@@ -937,7 +938,7 @@
                             <span>{{ $t('documentation') }}</span>
                         </div>
                     </a>
-                </li>
+                </li> -->
             </perfect-scrollbar>
         </nav>
     </div>
@@ -946,6 +947,7 @@
 <script setup>
     import { onMounted, ref } from 'vue';
     import { useStore } from 'vuex';
+    import Menu from '../plugins/menu.vue';
     const store = useStore();
 
     const menu_collapse = ref('dashboard');
@@ -969,8 +971,8 @@
     });
 
     const toggleMobileMenu = () => {
-        if (window.innerWidth < 991) {
+        /* if (window.innerWidth < 991) {
             store.commit('toggleSideBar', !store.state.is_show_sidebar);
-        }
+        } */
     };
 </script>

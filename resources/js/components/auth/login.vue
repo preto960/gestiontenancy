@@ -11,7 +11,7 @@
                             <form class="text-start" @submit.prevent="login">
                                 <div class="form">
                                     <div id="username-field" class="field-wrapper input">
-                                        <label for="username">USERNAME</label>
+                                        <label for="username">{{$t('username or email')}}</label>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="24"
@@ -27,13 +27,13 @@
                                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                             <circle cx="12" cy="7" r="4"></circle>
                                         </svg>
-                                        <input type="text" class="form-control" placeholder="Username or Email" v-model="email" />
+                                        <input type="text" class="form-control" :placeholder="$t('username or email')" v-model="email" />
                                     </div>
 
                                     <div id="password-field" class="field-wrapper input mb-2">
                                         <div class="d-flex justify-content-between">
-                                            <label for="password">PASSWORD</label>
-                                            <router-link to="/auth/pass-recovery-boxed" class="forgot-pass-link">Forgot Password?</router-link>
+                                            <label for="password">{{$t('password')}}</label>
+                                            <router-link to="/auth/pass-recovery-boxed" class="forgot-pass-link">{{$t('forgot password?')}}</router-link>
                                         </div>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +50,7 @@
                                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                         </svg>
-                                        <input :type="pwd_type" class="form-control" placeholder="Password" v-model="password"/>
+                                        <input :type="pwd_type" class="form-control" :placeholder="$t('password')" v-model="password"/>
                                         <svg
                                             @click="set_pwd_type"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -71,12 +71,12 @@
                                     </div>
                                     <div class="d-sm-flex justify-content-between">
                                         <div class="field-wrapper">
-                                            <button type="submit" class="btn btn-primary">Log In</button>
+                                            <button type="submit" class="btn btn-primary">{{$t('log in')}}</button>
                                         </div>
                                     </div>
 
                                     <div class="division">
-                                        <span>OR</span>
+                                        <span>{{$t('or')}}</span>
                                     </div>
 
                                     <div class="social">
@@ -118,7 +118,7 @@
                                         </a>
                                     </div>
 
-                                    <p class="signup-link">Not registered ? <router-link to="/auth/register-boxed">Create an account</router-link></p>
+                                    <p class="signup-link">{{$t('not registered?')}} <router-link to="/auth/register-boxed">{{$t('create an account')}}</router-link></p>
                                 </div>
                             </form>
                         </div>
@@ -131,10 +131,18 @@
 
 <script setup>
     import "../../assets/sass/authentication/auth-boxed.scss";
-    import { onMounted, ref, reactive } from 'vue';
+    import "../../assets/sass/components/custom-sweetalert.scss";
+    import { onMounted, ref, reactive, computed } from 'vue';
     import { useStore } from 'vuex';
     import axios from 'axios';
     import { useRouter } from 'vue-router';
+
+    import { useI18n } from 'vue-i18n';
+    const { t } = useI18n();
+
+    import { useMeta } from "../../composables/use-meta";
+    useMeta({ title: t('login') });
+
     const router = useRouter();
     const store = useStore();
 
@@ -159,8 +167,18 @@
         .then(response => {
             store.commit('setUserData',response.data.data);
             router.push('/dashboard');
+            window.Mixin.fire({
+                icon: 'success',
+                title: 'Welcome <p>' + response.data.data.user.profile.first_name + ' ' + response.data.data.user.profile.last_name +'</p>',
+                padding: '2em'
+            });
         })
         .catch(error => {
+            window.Mixin.fire({
+                icon: 'error',
+                title: error.response.data.message,
+                padding: '2em'
+            });
             console.error(error);
         });
     };

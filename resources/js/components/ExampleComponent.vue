@@ -9,7 +9,12 @@
                             With CORK starter kit, you can begin your work without any hassle. The starter page is highly optimized which gives you freedom to start with minimal code and add only the desired components and plugins required
                             for your project.
                         </p>
-                        <router-link to="/login">login</router-link>
+                        <div v-if="auth">
+                            <router-link to="/dashboard">dashboard</router-link>
+                        </div>
+                        <div v-else>
+                            <router-link to="/login">login</router-link>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -23,6 +28,19 @@
 </style>
 
 <script setup>
-    /* import { useMeta } from "../../composables/use-meta";
-    useMeta({ title: "Blank Page" }); */
+    import { ref } from 'vue';
+    import { useStore } from 'vuex';
+    
+    import { useI18n } from 'vue-i18n';
+    const { t } = useI18n();
+
+    import { useMeta } from "../composables/use-meta";
+    useMeta({ title: t('index') });
+
+    const store = useStore();
+    const auth = ref(false);
+
+    if(store.state.userData != null){
+        auth.value = true;
+    }
 </script>

@@ -20,5 +20,7 @@
     "documentation": "Documentation",
     "ui_kit": "UI Kit",
     "more": "More",
-    "login": "Login"
+    "login": "Login",
+    "profile": "Profile",
+    "index": "Index"
 }

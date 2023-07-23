@@ -298,18 +298,18 @@ const router = [
     },
 
     //tables
-    {
-        path: '/tables',
-        name: 'tables',
-        component: () => import(/* webpackChunkName: "tables" */ '../views/tables.vue'),
-    },
+    //{
+    //    path: '/tables',
+    //    name: 'tables',
+    //    component: () => import(/* webpackChunkName: "tables" */ '../views/tables.vue'),
+    //},
 
     //users
-    {
-        path: '/users/profile',
-        name: 'profile',
-        component: () => import(/* webpackChunkName: "users-profile" */ '../views/users/profile.vue'),
-    },
+    //{
+    //    path: '/users/profile',
+    //    name: 'profile',
+    //    component: () => import( '../views/users/profile.vue'),
+    //},
     {
         path: '/users/account-setting',
         name: 'account-setting',

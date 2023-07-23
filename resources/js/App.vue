@@ -8,9 +8,9 @@
 
     import "./assets/sass/app.scss";
 
-    import { useMeta } from "./composables/use-meta";
+    import "./assets/sass/components/custom-sweetalert.scss";
     import { useStore } from "vuex";
-
+    import { useMeta } from "./composables/use-meta";
     useMeta({ title: "Sales Admin" });
 
     const store = useStore();
@@ -23,7 +23,7 @@
     // layouts
     import appLayout from "./layouts/app-layout.vue";
     import authLayout from "./layouts/auth-layout.vue";
-    
+
     export default {
         components: {
             app: appLayout,

@@ -8,7 +8,6 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                /* 'resources/sass/app.scss', */
                 'resources/js/app.js',
             ],
             refresh: true,
@@ -16,7 +15,6 @@ export default defineConfig({
         vue({
             template: {
                 transformAssetUrls: {
-                    /* base: null, */
                     includeAbsolute: false,
                 },
             },
